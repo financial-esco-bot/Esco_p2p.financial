@@ -1,0 +1,33 @@
+class FinancialBot:
+    def __init__(self):
+        self.data_source = DataSource()
+        self.report_generator = ReportGenerator()
+
+    def fetch_and_analyze_data(self):
+        data = self.data_source.fetch_data()
+        analysis = self.report_generator.generate_report(data)
+        return analysis
+
+    def run(self):
+        while True:
+            analysis = self.fetch_and_analyze_data()
+            self.save_report(analysis)
+            time.sleep(3600)  # Run every hour
+
+    def save_report(self, analysis):
+        # Code to save the analysis report
+        pass
+
+    def receive_command(self, command):
+        if command == "run_analysis":
+            analysis = self.fetch_and_analyze_data()
+            print("Analysis Report:", analysis)
+        elif command == "update_data_source":
+            self.data_source.update()
+            print("Data source updated")
+
+if __name__ == "__main__":
+    bot = FinancialBot()
+    while True:
+        command = input("Enter command: ")
+        bot.receive_command(command)
